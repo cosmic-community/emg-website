@@ -64,6 +64,23 @@ export interface HomePage extends CosmicObject {
   };
 }
 
+// Shop page interface
+export interface ShopPage extends CosmicObject {
+  type: 'shop';
+  metadata: {
+    seo?: SEOMetadata;
+    product_categories?: ProductCategory[];
+    image?: {
+      url: string;
+      imgix_url: string;
+    };
+    why?: Array<{
+      title?: string;
+      reason?: string;
+    }>;
+  };
+}
+
 // About page interface
 export interface AboutPage extends CosmicObject {
   type: 'about';
@@ -204,8 +221,72 @@ export interface ProductCategory extends CosmicObject {
       imgix_url: string;
     };
     subcategories?: string[] | null;
-    produce_type?: string;
+    produce_type?: any;
     description?: string;
+  };
+}
+
+// Product subcategories interface
+export interface ProductSubcategory extends CosmicObject {
+  type: 'product-subcategories';
+  metadata: {
+    seo?: SEOMetadata;
+    image?: {
+      url: string;
+      imgix_url: string;
+    };
+    content?: string;
+    description?: string;
+    parent_category?: ProductCategory;
+  };
+}
+
+// Product interface
+export interface Product extends CosmicObject {
+  type: 'products';
+  metadata: {
+    seo?: SEOMetadata;
+    image?: {
+      url: string;
+      imgix_url: string;
+    };
+    product_category?: ProductCategory | null;
+    subcategory?: ProductSubcategory | null;
+    gallery?: Array<{
+      url: string;
+      imgix_url: string;
+    }> | null;
+    price?: number;
+    price_variants?: Array<{
+      name: string;
+      price: number;
+    }>;
+    is_taxable?: boolean;
+    inventory_quantity?: number | null;
+    description?: string | null;
+    stripe_product_id?: string | null;
+    recurring?: {
+      is_recurring: boolean;
+      interval: {
+        key: string;
+        value: string;
+      };
+      interval_count: number;
+    };
+    shipping_info?: {
+      weight: number;
+      length: number;
+      width: number;
+      height: number;
+    };
+    related_resources?: Array<{
+      title: string;
+      description?: string;
+      image?: {
+        url: string;
+        imgix_url: string;
+      };
+    }>;
   };
 }
 

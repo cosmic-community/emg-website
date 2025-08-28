@@ -1,5 +1,5 @@
 import { createBucketClient } from '@cosmicjs/sdk'
-import type { BlogPost, CosmicObject } from '@/types'
+import type { BlogPost, CosmicObject, Product, ProductCategory, ProductSubcategory } from '@/types'
 
 export const cosmic = createBucketClient({
   bucketSlug: process.env.COSMIC_BUCKET_SLUG as string,
@@ -205,5 +205,127 @@ export async function submitContactForm(formData: {
   } catch (error) {
     console.error('Error submitting form:', error);
     throw new Error('Failed to submit form');
+  }
+}
+
+// Product-related functions
+export async function getShopPage() {
+  try {
+    const response = await cosmic.objects.findOne({
+      type: 'shop',
+    }).props(['id', 'title', 'slug', 'metadata']).depth(2);
+    
+    return response.object;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function getProductCategories() {
+  try {
+    const response = await cosmic.objects
+      .find({ type: 'product-categories' })
+      .props(['id', 'title', 'slug', 'metadata'])
+      .depth(1);
+    
+    return response.objects;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+export async function getProductCategory(slug: string) {
+  try {
+    const response = await cosmic.objects.findOne({
+      type: 'product-categories',
+      slug,
+    }).props(['id', 'title', 'slug', 'metadata']).depth(1);
+    
+    return response.object;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function getProductSubcategories() {
+  try {
+    const response = await cosmic.objects
+      .find({ type: 'product-subcategories' })
+      .props(['id', 'title', 'slug', 'metadata'])
+      .depth(1);
+    
+    return response.objects;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+export async function getProducts(limit: number = 50, skip: number = 0) {
+  try {
+    const response = await cosmic.objects
+      .find({ type: 'products' })
+      .props(['id', 'title', 'slug', 'metadata', 'created_at'])
+      .depth(1)
+      .limit(limit)
+      .skip(skip);
+    
+    return {
+      objects: response.objects,
+      total: response.total,
+    };
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return { objects: [], total: 0 };
+    }
+    throw error;
+  }
+}
+
+export async function getProduct(slug: string) {
+  try {
+    const response = await cosmic.objects.findOne({
+      type: 'products',
+      slug,
+    }).props(['id', 'title', 'slug', 'metadata', 'created_at']).depth(2);
+    
+    return response.object;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+export async function getProductsByCategory(categorySlugOrId: string, limit: number = 50) {
+  try {
+    // Try both slug and ID search
+    const response = await cosmic.objects
+      .find({ 
+        type: 'products',
+        'metadata.product_category': categorySlugOrId
+      })
+      .props(['id', 'title', 'slug', 'metadata', 'created_at'])
+      .depth(1)
+      .limit(limit);
+    
+    return response.objects;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return [];
+    }
+    throw error;
   }
 }
