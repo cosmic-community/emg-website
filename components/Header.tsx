@@ -42,6 +42,12 @@ export default function Header() {
               About
             </Link>
             <Link 
+              href="/products" 
+              className="text-gray-700 hover:text-primary transition-colors font-medium"
+            >
+              Shop
+            </Link>
+            <Link 
               href="/blog" 
               className="text-gray-700 hover:text-primary transition-colors font-medium"
             >
@@ -96,6 +102,13 @@ export default function Header() {
                 onClick={closeMenu}
               >
                 About
+              </Link>
+              <Link 
+                href="/products" 
+                className="text-gray-700 hover:text-primary transition-colors font-medium"
+                onClick={closeMenu}
+              >
+                Shop
               </Link>
               <Link 
                 href="/blog" 

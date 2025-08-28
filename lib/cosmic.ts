@@ -309,13 +309,19 @@ export async function getProduct(slug: string) {
   }
 }
 
-export async function getProductsByCategory(categorySlugOrId: string, limit: number = 50) {
+export async function getProductsByCategory(categorySlug: string, limit: number = 50) {
   try {
-    // Try both slug and ID search
+    // First, get the category by slug to find its ID
+    const category = await getProductCategory(categorySlug);
+    if (!category) {
+      return [];
+    }
+
+    // Then find products that belong to this category using the category ID
     const response = await cosmic.objects
       .find({ 
         type: 'products',
-        'metadata.product_category': categorySlugOrId
+        'metadata.product_category': category.id
       })
       .props(['id', 'title', 'slug', 'metadata', 'created_at'])
       .depth(1)
