@@ -1,4 +1,5 @@
 import { ProductCategory } from '@/types'
+import Link from 'next/link'
 
 interface ProductCarouselProps {
   products: ProductCategory[]
@@ -20,9 +21,10 @@ export default function ProductCarousel({ products }: ProductCarouselProps) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
           {products.slice(0, 6).map((product) => (
-            <div 
+            <Link 
               key={product.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
+              href={`/products/category/${product.slug}`}
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group block"
             >
               {product.metadata?.image && (
                 <div className="aspect-ratio-square overflow-hidden">
@@ -34,24 +36,30 @@ export default function ProductCarousel({ products }: ProductCarouselProps) {
                 </div>
               )}
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-primary mb-2">
+                <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary-dark transition-colors">
                   {product.title}
                 </h3>
                 {product.metadata?.seo?.description && (
-                  <p className="text-gray-600 text-sm line-clamp-2">
+                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">
                     {product.metadata.seo.description}
                   </p>
                 )}
+                <div className="flex items-center text-primary text-sm font-medium">
+                  <span>Explore Category</span>
+                  <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         {products.length > 6 && (
           <div className="text-center mt-8">
-            <button className="btn btn-primary">
+            <Link href="/products" className="btn btn-primary">
               View All Products
-            </button>
+            </Link>
           </div>
         )}
       </div>
