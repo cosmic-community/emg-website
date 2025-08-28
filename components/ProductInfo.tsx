@@ -45,8 +45,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               )}
             </div>
             
-            {/* Inventory Status */}
-            {product.metadata?.inventory_quantity !== undefined && (
+            {/* Inventory Status - Fix for null inventory_quantity */}
+            {product.metadata?.inventory_quantity !== undefined && product.metadata.inventory_quantity !== null && (
               <div className="text-right">
                 {product.metadata.inventory_quantity === 0 ? (
                   <div className="text-red-600 font-medium">Out of Stock</div>

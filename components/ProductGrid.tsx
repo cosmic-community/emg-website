@@ -66,8 +66,8 @@ export default function ProductGrid({ products }: ProductGridProps) {
               </p>
             )}
 
-            {/* Inventory Status */}
-            {product.metadata?.inventory_quantity !== undefined && (
+            {/* Inventory Status - Fix for null inventory_quantity */}
+            {product.metadata?.inventory_quantity !== undefined && product.metadata.inventory_quantity !== null && (
               <div className="mb-2">
                 {product.metadata.inventory_quantity === 0 ? (
                   <span className="text-red-600 text-xs font-medium">Out of Stock</span>
