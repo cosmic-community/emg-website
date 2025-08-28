@@ -1,4 +1,5 @@
 import { createBucketClient } from '@cosmicjs/sdk'
+import type { BlogPost, CosmicObject } from '@/types'
 
 export const cosmic = createBucketClient({
   bucketSlug: process.env.COSMIC_BUCKET_SLUG as string,
@@ -96,8 +97,8 @@ export async function getBlogPosts(limit: number = 10, skip: number = 0) {
       .limit(limit)
       .skip(skip);
     
-    // Sort manually by date
-    const sortedPosts = response.objects.sort((a, b) => {
+    // Sort manually by date with proper typing
+    const sortedPosts = response.objects.sort((a: CosmicObject, b: CosmicObject) => {
       const dateA = new Date(a.metadata?.published_at || a.created_at || '').getTime();
       const dateB = new Date(b.metadata?.published_at || b.created_at || '').getTime();
       return dateB - dateA;

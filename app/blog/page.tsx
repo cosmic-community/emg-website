@@ -1,5 +1,5 @@
 import { getBlogPage, getBlogPosts, getCategories } from '@/lib/cosmic'
-import { BlogPage, BlogPost, Category } from '@/types'
+import type { BlogPage, BlogPost, Category } from '@/types'
 import { Metadata } from 'next'
 import BlogPostCard from '@/components/BlogPostCard'
 import CategoryFilter from '@/components/CategoryFilter'
@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function BlogPage() {
+export default async function BlogPageComponent() {
   const blogPage = await getBlogPage() as BlogPage | null
   const { objects: posts } = await getBlogPosts(12)
   const categories = await getCategories() as Category[]
@@ -60,8 +60,8 @@ export default async function BlogPage() {
         {/* Blog Posts Grid */}
         {posts && posts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <BlogPostCard key={post.id} post={post as BlogPost} />
+            {posts.map((post: BlogPost) => (
+              <BlogPostCard key={post.id} post={post} />
             ))}
           </div>
         ) : (

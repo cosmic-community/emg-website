@@ -1,5 +1,5 @@
 import { getHomePage } from '@/lib/cosmic'
-import { HomePage } from '@/types'
+import type { HomePage } from '@/types'
 import { Metadata } from 'next'
 import HeroSection from '@/components/HeroSection'
 import ProductCarousel from '@/components/ProductCarousel'
@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function HomePage() {
+export default async function HomePageComponent() {
   const homepage = await getHomePage() as HomePage | null
 
   if (!homepage) {

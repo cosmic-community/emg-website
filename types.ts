@@ -191,7 +191,7 @@ export interface BlogPost extends CosmicObject {
 
 export interface Tag extends CosmicObject {
   type: 'tags';
-  metadata: null | Record<string, any>;
+  metadata: Record<string, any>;
 }
 
 // Product categories interface

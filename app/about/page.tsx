@@ -1,5 +1,5 @@
 import { getAboutPage } from '@/lib/cosmic'
-import { AboutPage } from '@/types'
+import type { AboutPage } from '@/types'
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function AboutPage() {
+export default async function AboutPageComponent() {
   const aboutPage = await getAboutPage() as AboutPage | null
 
   if (!aboutPage) {
