@@ -15,27 +15,33 @@ export default function HeroSection({ homepage }: HeroSectionProps) {
           <>
             {/* Desktop Images */}
             <div className="hidden md:block w-full h-full">
-              <img 
-                src={`${metadata.gallery[0].imgix_url}?w=1920&h=1080&fit=crop&auto=format,compress`}
-                alt="Emory Market Gardens"
-                className="w-full h-full object-cover"
-              />
+              {metadata.gallery[0] && metadata.gallery[0].imgix_url && (
+                <img 
+                  src={`${metadata.gallery[0].imgix_url}?w=1920&h=1080&fit=crop&auto=format,compress`}
+                  alt="Emory Market Gardens"
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
             
             {/* Mobile Images */}
             <div className="md:hidden w-full h-full">
               {metadata.gallery_mobile && metadata.gallery_mobile.length > 0 ? (
-                <img 
-                  src={`${metadata.gallery_mobile[0].imgix_url}?w=768&h=1024&fit=crop&auto=format,compress`}
-                  alt="Emory Market Gardens Mobile"
-                  className="w-full h-full object-cover"
-                />
+                metadata.gallery_mobile[0] && metadata.gallery_mobile[0].imgix_url && (
+                  <img 
+                    src={`${metadata.gallery_mobile[0].imgix_url}?w=768&h=1024&fit=crop&auto=format,compress`}
+                    alt="Emory Market Gardens Mobile"
+                    className="w-full h-full object-cover"
+                  />
+                )
               ) : (
-                <img 
-                  src={`${metadata.gallery[0].imgix_url}?w=768&h=1024&fit=crop&auto=format,compress`}
-                  alt="Emory Market Gardens"
-                  className="w-full h-full object-cover"
-                />
+                metadata.gallery[0] && metadata.gallery[0].imgix_url && (
+                  <img 
+                    src={`${metadata.gallery[0].imgix_url}?w=768&h=1024&fit=crop&auto=format,compress`}
+                    alt="Emory Market Gardens"
+                    className="w-full h-full object-cover"
+                  />
+                )
               )}
             </div>
           </>
