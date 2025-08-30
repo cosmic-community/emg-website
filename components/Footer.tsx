@@ -6,32 +6,41 @@ export default async function Footer() {
   const footer = await getFooter() as FooterType | null
 
   return (
-    <footer className="bg-primary text-white">
+    <footer className="section-gradient">
       <div className="container-custom py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <h3 className="text-xl font-bold mb-4">Emory Market Gardens</h3>
-            {footer?.metadata?.description && (
-              <p className="text-gray-200 mb-4 max-w-md">
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4 shadow-glow">
+                <span className="text-white font-bold text-xl">E</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white">Emory Market Gardens</h3>
+            </div>
+            {footer?.metadata?.description ? (
+              <p className="text-gray-200 mb-6 max-w-md text-lg leading-relaxed">
                 {footer.metadata.description}
               </p>
+            ) : (
+              <p className="text-gray-200 mb-6 max-w-md text-lg leading-relaxed">
+                Experience the power of nature
+              </p>
             )}
-            <div className="text-gray-200 text-sm">
-              <p>Professional & modern, a theme designed to help your business stand out from the rest.</p>
+            <div className="text-gray-300 text-base">
+              <p>Discover how mushrooms offer exceptional nutritional benefits, immune support, and antioxidant properties while providing sustainable, versatile ingredients for delicious cooking.</p>
             </div>
           </div>
 
           {/* Navigation Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <nav className="space-y-2">
+            <h4 className="text-xl font-bold text-white mb-6">Quick Links</h4>
+            <nav className="space-y-3">
               {footer?.metadata?.page_links?.metadata?.items ? (
                 footer.metadata.page_links.metadata.items.map((link, index) => (
                   <Link
                     key={index}
                     href={link.link || '/'}
-                    className="text-gray-200 hover:text-white transition-colors block"
+                    className="text-gray-200 hover:text-white transition-colors block text-lg"
                     {...(link.open_in_new_tab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {link.title}
@@ -39,17 +48,20 @@ export default async function Footer() {
                 ))
               ) : (
                 <>
-                  <Link href="/" className="text-gray-200 hover:text-white transition-colors block">
-                    Home
+                  <Link href="/" className="text-gray-200 hover:text-white transition-colors block text-lg">
+                    HOME
                   </Link>
-                  <Link href="/about" className="text-gray-200 hover:text-white transition-colors block">
-                    About
+                  <Link href="/about" className="text-gray-200 hover:text-white transition-colors block text-lg">
+                    ABOUT
                   </Link>
-                  <Link href="/blog" className="text-gray-200 hover:text-white transition-colors block">
-                    Blog
+                  <Link href="/products" className="text-gray-200 hover:text-white transition-colors block text-lg">
+                    SHOP
                   </Link>
-                  <Link href="/contact" className="text-gray-200 hover:text-white transition-colors block">
-                    Contact
+                  <Link href="/blog" className="text-gray-200 hover:text-white transition-colors block text-lg">
+                    BLOG
+                  </Link>
+                  <Link href="/contact" className="text-gray-200 hover:text-white transition-colors block text-lg">
+                    MORE...
                   </Link>
                 </>
               )}
@@ -58,17 +70,19 @@ export default async function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Visit Our Farm</h4>
-            <div className="text-gray-200 space-y-3">
-              {footer?.metadata?.our_address && (
+            <h4 className="text-xl font-bold text-white mb-6">Our Address</h4>
+            <div className="text-gray-200 space-y-4">
+              {footer?.metadata?.our_address ? (
+                <div dangerouslySetInnerHTML={{ __html: footer.metadata.our_address }} />
+              ) : (
                 <div>
-                  <h5 className="font-medium text-white mb-1">Address</h5>
-                  <div dangerouslySetInnerHTML={{ __html: footer.metadata.our_address }} />
+                  <p className="font-medium text-white">Emory Market Gardens, LLC.</p>
+                  <p>4020 FM 515</p>
+                  <p>Emory, TX 75440</p>
                 </div>
               )}
               {footer?.metadata?.opening_times && (
-                <div>
-                  <h5 className="font-medium text-white mb-1">Hours</h5>
+                <div className="pt-4 border-t border-primary-light">
                   <div dangerouslySetInnerHTML={{ __html: footer.metadata.opening_times }} />
                 </div>
               )}
@@ -77,32 +91,22 @@ export default async function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-600 mt-8 pt-8">
+        <div className="border-t border-primary-light mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-200 text-sm">
-              © {new Date().getFullYear()} Emory Market Gardens. All rights reserved.
-            </p>
-            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <span className="text-gray-200 text-sm">Follow us:</span>
-              <a 
-                href="https://facebook.com/emorymarketgardens" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-200 hover:text-white transition-colors"
-                aria-label="Facebook"
-              >
-                Facebook
-              </a>
-              <a 
-                href="https://instagram.com/emorymarketgardens" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-200 hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                Instagram
-              </a>
+            <div className="text-gray-300 text-sm mb-4 md:mb-0">
+              <div className="flex items-center space-x-4">
+                <Link href="/terms" className="hover:text-white transition-colors">
+                  Terms and Conditions
+                </Link>
+                <span>|</span>
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </div>
             </div>
+            <p className="text-gray-300 text-sm">
+              Copyright © {new Date().getFullYear()} Emory Market Gardens. All Rights Reserved.
+            </p>
           </div>
         </div>
       </div>

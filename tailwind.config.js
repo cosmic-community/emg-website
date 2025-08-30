@@ -7,19 +7,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#2F4F2F',
-        'primary-dark': '#1F3F1F',
-        'primary-light': '#4A6B4A',
+        primary: '#1a2e1a', // Dark forest green from images
+        'primary-dark': '#0f1a0f',
+        'primary-light': '#2d4a2d',
         secondary: '#8FBC8F',
         'secondary-light': '#E8F5E8',
         'secondary-dark': '#7BAD7B',
-        accent: '#D2691E',
-        'accent-light': '#F4E4D0',
-        'accent-dark': '#B8551A',
+        accent: '#c55a2c', // Orange accent color from icons
+        'accent-light': '#e8a882',
+        'accent-dark': '#a04620',
         earth: '#8B4513',
         sage: '#9CAF88',
-        forest: '#355E3B',
+        forest: '#1a2e1a', // Matching the primary
         cream: '#F8F6F0',
+        'dark-overlay': 'rgba(26, 46, 26, 0.9)', // For overlays
         'warm-gray': {
           50: '#FAFAF9',
           100: '#F5F5F4',
@@ -62,34 +63,34 @@ module.exports = {
             color: '#374151',
             lineHeight: '1.6',
             a: {
-              color: '#2F4F2F',
+              color: '#c55a2c',
               textDecoration: 'none',
               '&:hover': {
-                color: '#1F3F1F',
+                color: '#a04620',
                 textDecoration: 'underline',
               },
             },
             h1: {
-              color: '#2F4F2F',
+              color: '#1a2e1a',
               fontWeight: '700',
               lineHeight: '1.2',
             },
             h2: {
-              color: '#2F4F2F',
+              color: '#1a2e1a',
               fontWeight: '700',
               lineHeight: '1.3',
             },
             h3: {
-              color: '#2F4F2F',
+              color: '#1a2e1a',
               fontWeight: '600',
               lineHeight: '1.4',
             },
             h4: {
-              color: '#2F4F2F',
+              color: '#1a2e1a',
               fontWeight: '600',
             },
             strong: {
-              color: '#2F4F2F',
+              color: '#1a2e1a',
             },
             blockquote: {
               borderLeftColor: '#8FBC8F',
@@ -102,6 +103,11 @@ module.exports = {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         'strong': '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 2px 10px -2px rgba(0, 0, 0, 0.05)',
+        'glow': '0 0 20px rgba(197, 90, 44, 0.3)',
+      },
+      backgroundImage: {
+        'gradient-dark': 'linear-gradient(135deg, #1a2e1a 0%, #0f1a0f 100%)',
+        'gradient-overlay': 'linear-gradient(rgba(26, 46, 26, 0.8), rgba(26, 46, 26, 0.9))',
       },
     },
   },
